@@ -1,0 +1,81 @@
+CQRS Pattern — C#:
+https://medium.com/@martinstm/cqrs-pattern-c-a6632693d3e1
+
+CQRS Pattern — C#
+
+Esse Pattern arquitetural basicamente diz que podemos usar um modelo para operações de leitura e outro para operações de escrita. Parece bom, mas pode ser muito complicado de implementar devido à complexidade que irá adicionar.
+CQRS significa Comando e Segregação de Responsabilidade de Consulta.
+
+Quais são as palavras-chave?
+Consultas
+Comandos
+As consultas recuperarão os dados e os comandos gravarão os dados. Simples, certo? Separação de preocupações aplicada!
+
+Por que essa separação de modelos?
+Normalmente para aplicações simples é normal trabalhar com um modelo único para todos os tipos de operações CRUD. No entanto, se nosso backend for um pouco mais complexo e tiver vários modelos distintos para resultados de consulta e um monte de etapas e conversões antes de atualizar ou inserir uma entidade, será mais difícil manter todo o sistema baseado no mesmo modelo.
+
+E se minha carga para leituras for diferente das gravações?
+É um caso adequado. Em sistemas com alta demanda e grande variação entre as cargas de leitura e escrita, esse padrão é muito bom. Somos capazes de configurar a capacidade de acordo com o tipo de operação de forma independente.
+
+É bom para uma arquitetura de microsserviços?
+Sim, é um bom caso de uso. Eu diria até que é o melhor caso de uso. Normalmente, uma arquitetura orientada a eventos pode se comunicar com diferentes armazenamentos de dados. Podemos ter um armazenamento de dados apenas para operações de escrita e outro para operações de leitura, que normalmente podem estar em um estado desnormalizado. O microsserviço pode ter dois serviços distintos com um trabalho específico, gravar dados e ler dados.
+
+
+Exemplo de arquitetura de microsserviços com CQRS
+O CQRS é bom, pois podemos aplicar a separação de preocupações diretamente com os serviços desacoplados dentro de um microsserviço. Valerá a pena unir esse padrão com o padrão SAGA para microsserviços.
+
+Se é tão bom, devo usá-lo em todos os projetos?
+
+Bem, eu diria que isso pode ser uma má ideia . Como todo padrão de projeto, precisamos avaliar se ele é adequado ou não para o nosso problema.
+Existem muitos casos onde nosso modelo para escrever e para ser lido são basicamente os mesmos, a menos que uma ou duas propriedades. Nesses casos, usar um modelo compartilhado será mais fácil de construir e manter. Lembre-se de que forçar esse padrão em um modelo que não precisa apenas adicionará mais complexidade, o que, em muitos casos, também causará mais tempo e risco de desenvolvimento.
+
+Quando não usar?
+Isso é apenas uma opinião, você pode usar sempre que quiser. O problema é que isso não vale tanto a pena quando estamos trabalhando com modelos de domínio simples com regras básicas de negócios ou se os requisitos precisam apenas de uma estrutura CRUD essencial, nada mais fora da caixa.
+
+E o código?
+Para uma melhor compreensão e porque pessoalmente prefiro ver as coisas na realidade e não apenas na teoria, criei um projeto de amostra onde foi aplicado o padrão CQRS. Sinta-se à vontade para verificar meu repositório GitHub para obter mais detalhes.
+
+A ideia
+A ideia principal para este exemplo é configurar vários comandos e consultas para gerenciar um relacionamento simples entre usuários e equipes.
+
+As ferramentas
+Para criar um modelo baseado em um sistema de banco de dados, foi utilizado o Entity Framework Core com recurso InMemory.
+Você também pode usar um pacote MediatR , mas criei meu próprio processador de comandos para simplificar este exemplo.
+
+A arquitetura
+Foi implementada uma arquitetura onion com algumas camadas com o objetivo descrito a seguir:
+
+Domínio — Modelos de entidade do banco de dados e seus relacionamentos. As interfaces do repositório também são definidas nesta camada.
+Aplicação — Onde comandos, consultas e DTOs são definidos e implementados.
+Infraestrutura — A implementação de interfaces de repositório.
+API — Uma camada de exposição para os usuários finais. Fornece terminais para consultar e criar objetos no sistema.
+APP — Semelhante à API, mas com uma forma diferente de integração com outros sistemas. Atua como um microsserviço que pode receber eventos para consultar ou criar objetos.
+
+estrutura de arquitetura
+Para mais detalhes sobre este tipo de arquitetura, você pode conferir meu post anterior aqui .
+
+Os requisitos
+O sistema precisa ter a capacidade de criar usuários e equipes. Durante a criação da equipe, os usuários associados devem ser definidos usando suas informações de e-mail.
+
+A solução
+O APP baseado em eventos possui apenas uma chamada de consulta simples a ser executada a cada 5 segundos. Nesse caso, poderíamos investir algum tempo para ter um modelo de mensagem com alguns detalhes para nos permitir redirecionar o processamento para a consulta ou comando correto. Porém, para simplificar, a solução teve como foco principal a API.
+
+A API tem 4 endpoints:
+
+[ GET ] api/team/all 
+[ POST ] api/team 
+
+[ GET ] api/user/all 
+[ POST ] api/user
+Os métodos GET resultarão em chamadas de consulta e os métodos POST na criação de comandos específicos a serem enviados ao CommandProcessorserviço. Este serviço é responsável por enviar o comando para o handler que é o dono deste tipo de comando. Depois disso, o handler pega a requisição e faz a lógica necessária para criar o recurso.
+
+
+fluxo de comando
+Para consultas é um pouco mais simples já que tem apenas alguns passos. O controlador de API usa a classe de consulta do usuário para chamar o método desejado. O próprio método de consulta faz uma chamada para o método de interface do repositório que realmente acessa o banco de dados.
+
+
+fluxo de consulta
+E com isso, temos o padrão CQRS implementado em nosso sistema.
+
+Conclusão
+Em resumo, o padrão CQRS é muito legal e adequado para casos em que realmente queremos desacoplar coisas de leituras e gravações. No entanto, como disse Martin Fowler em sua página , devemos ter o cuidado de usá-lo quando realmente se encaixa no problema que queremos resolver usando esse padrão. É muito fácil transformar a arquitetura do sistema em um pesadelo e difícil de manter nos casos em que esta não é uma opção adequada. Também dependerá do tamanho do seu sistema e do crescimento que você espera. No entanto, este é um padrão que quando usado em uma solução adequada será muito útil.
