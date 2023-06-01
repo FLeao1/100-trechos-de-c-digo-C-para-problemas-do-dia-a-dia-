@@ -1,0 +1,725 @@
+Bem-vindo a esta compilação abrangente de 100 trechos de código C# projetados para lidar com problemas do dia a dia! Este artigo é inspirado no trabalho original de Jeremy Grifski, “ 100 trechos de código Python para problemas cotidianos “- Como desenvolvedores, frequentemente buscamos soluções práticas para desafios comuns, e o C# fornece uma plataforma poderosa e versátil para lidar com esses problemas.
+
+Neste artigo, selecionamos uma coleção de trechos de código C# que cobrem uma ampla variedade de cenários que você pode encontrar durante o desenvolvimento de software. Esses snippets não apenas mostram os recursos do C#, mas também servem como um recurso valioso para aprimorar seu kit de ferramentas de programação. Portanto, seja você um desenvolvedor experiente ou um novato em C#, mergulhe e explore essas soluções úteis!
+
+Observe que a inspiração deste artigo, a versão Python, foi criada com maestria por Jeremy Grifski , e você pode encontrar seu trabalho perspicaz “ 100 trechos de código Python para problemas cotidianos “. Codificação feliz!
+
+Dicionários (9 trechos)
+Em C#, os dicionários servem como uma estrutura de dados robusta e flexível para conectar pares de elementos. Considere usar um dicionário para registrar a frequência das palavras presentes neste texto.
+
+As chaves do dicionário representariam palavras distintas encontradas neste texto, com cada palavra vinculada à sua respectiva contagem. Esse tipo de estrutura é altamente benéfico em vários cenários. Agora, vamos nos aprofundar em algumas operações de dicionário predominantes em C#!
+
+Mesclando dois dicionários
+A combinação de dois dicionários é uma operação comum ao trabalhar com estruturas de dados em C#. No entanto, mesclar dicionários pode ser complicado, especialmente quando há chaves duplicadas. Aqui estão algumas soluções para lidar com esses casos:
+
+Dictionary < string , string > dict1 = new  Dictionary < string , string > { { "Superman" , "Flight" } }; 
+Dicionário < string , string > dict2 = new  Dicionário < string , string > { { "Batman" , "Dispositivos" } }; 
+
+// Usando LINQ 
+var merged = dict1. Concat (dict2). ParaDicionário ( x => x.x => x. valor ); 
+// Usando um loop foreach foreach
+ ( var item in dict2)
+{
+    dict1[item. Chave ] = artigo. Valor ; 
+}
+ // Usando o método de extensão Union 
+var merged2 = dict1. União (dict2). ToDictionary ( x => x. Key , x => x. Value );
+Invertendo um dicionário
+Existe um cenário em que você pode considerar trocar as chaves e os valores de um dicionário? Essa operação pode ser complicada, especialmente ao lidar com valores não exclusivos ou valores não hasháveis. Aqui estão algumas soluções para casos simples:
+
+Dictionary< string , string > heroesAbilities = new Dictionary< string , string > 
+{ 
+    { "Flash" , "Super Speed" }, 
+    { "Green Lantern" , "Power Ring" }, 
+    { "Aquaman" , "Atlantean Strength" } 
+} ; 
+
+// Invertendo o dicionário usando LINQ 
+var inverted = heroesAbilities.ToDictionary(x => x.Value, x => x.Key); 
+// Invertendo o dicionário usando um loop foreach
+ Dictionary< string ,> invertido2 = new Dicionário< string , string >(); 
+foreach ( var item em heroHabilidades) 
+{ 
+    invertido2[item.Value] = item.Key; 
+}
+Executando uma pesquisa reversa no dicionário
+Em alguns casos, você pode querer realizar uma pesquisa inversa em um dicionário, ou seja, você deseja encontrar uma chave com base em um determinado valor. Isso pode ser útil quando o dicionário é muito grande para ser invertido. Aqui estão algumas maneiras de conseguir isso:
+
+Dicionário< string , int > dimensões = new Dicionário< string , int > 
+{ 
+    { "comprimento" , 10 }, 
+    { "largura" , 20 }, 
+    { "altura" , 30 } 
+}; 
+
+int valorParaEncontrar = 20 ; 
+// Solução de força bruta -- chave única 
+foreach ( item var em dimensões) 
+{ 
+    if (item.Value == valueToFind) 
+    { 
+        Console.WriteLine($" {item.Key} : {item.Value} " ); 
+        quebrar ; 
+    } 
+} 
+// Solução de força bruta -- várias chaves 
+foreach ( var item em dimensões) 
+{ 
+    if (item.Value == valueToFind) 
+    { 
+        Console.WriteLine( $" {item.Key} : {item.Value} " ); 
+    } 
+} 
+// Usando LINQ -- chave única 
+var key = dimension.FirstOrDefault(x => x.Value == valueToFind).Key; 
+Console.WriteLine( $" {key} : {valueToFind} "); 
+// Usando LINQ -- várias chaves 
+var keys = Dimensions.Where(x => x.Value == valueToFind).Select(x => x.Key); 
+foreach ( var k in keys) 
+{ 
+    Console.WriteLine( $" {k} : {valueToFind} " ); 
+}
+Os snippets acima demonstram diferentes maneiras de realizar uma pesquisa de dicionário reverso em C#. Dependendo do tamanho do dicionário e da saída desejada, você pode escolher o método mais adequado para o seu caso de uso.
+
+Entrada/saída (4 trechos)
+Instâncias frequentes de E/S envolvem interações com bancos de dados, arquivos e interfaces de linha de comando. Embora o C# simplifique efetivamente as operações de E/S, certas complexidades permanecem. Vamos examinar alguns desses desafios!
+
+Escrevendo na mesma linha
+Às vezes, você só precisa escrever na mesma linha em seu aplicativo de console C#. O Console.Writemétodo permite que você faça isso sem adicionar uma nova linha no final de sua string:
+
+Console.Write( "O Escritório" ); 
+Console.Write( "Parques e recreação" );
+Criando um atalho de script C#
+Existe uma maneira de executar convenientemente um script com apenas um clique de um botão depois de desenvolvê-lo? Felizmente, vários métodos permitem que você consiga isso.
+
+Uma abordagem é gerar um arquivo em lote contendo o código subsequente:
+
+@ echo off 
+csc /path/to/MyProgram.cs 
+MyProgram.exe
+Verificando se existe um arquivo
+Felizmente em C# é fácil. O System.IOnamespace fornece um conjunto de métodos para trabalhar com arquivos, como verificar se existe um arquivo:
+
+usando System.IO; 
+
+/ /  Verifique se o arquivo existe  usando o método File.Exists 
+bool exists  = File.Exists("/caminho/para/arquivo");
+Analisando um arquivo CSV
+O C# oferece aplicativos intrigantes no domínio da manipulação de dados, que geralmente requer lidar com quantidades substanciais de dados brutos em diversos formatos, como arquivos de texto e arquivos CSV.
+
+Felizmente, o C# vem equipado com várias ferramentas integradas para lidar com vários formatos de arquivo. Por exemplo, a análise de um arquivo CSV pode ser realizada sem esforço:
+
+usando Sistema; 
+usando System.IO; 
+
+// Lê todas as linhas do arquivo CSV 
+string [] lines = File.ReadAllLines( "/path/to/data.csv" ); 
+// Processa cada linha 
+foreach ( string line in lines) 
+{ 
+    // Dividir a linha em campos 
+    string [] campos = line.Split( ',' ); 
+    // Faça algo com os campos, por exemplo, imprima-os
+     Console.WriteLine( $" {fields[ 0 ]} - {fields[ 1 ]} - {fields[ 2 ]} " ); 
+}
+Listas (27 trechos)
+Entre várias estruturas de dados, as listas se destacam como as mais prevalentes. Em C#, uma lista representa uma matriz dinâmica que utiliza indexação baseada em zero. Isso significa que podemos adicionar e remover itens sem nos preocuparmos com a implementação subjacente, tornando as listas altamente intuitivas.
+
+Naturalmente, como outras estruturas de dados mencionadas aqui, as listas apresentam seu próprio conjunto de desafios. Vamos explorar mais!
+
+Acrescentar um elemento a uma lista
+À medida que meu interesse por essa coleção cresceu, fiquei intrigado com os fundamentos do C#. Em outras palavras, quais tarefas os iniciantes podem querer executar e quantas abordagens alternativas existem para realizá-las? Uma dessas tarefas é anexar um elemento a uma lista.
+
+C# oferece vários métodos para adicionar itens a listas. Por exemplo, o método amplamente utilizado Add()está disponível. No entanto, existem muitas outras opções também. Aqui estão cinco:
+
+// Lista definida estaticamente
+ List< int > myList = new List< int > { 2 , 5 , 6 }; 
+// Acrescentando usando Add()
+ myList.Add( 5 );  // [2, 5, 6, 5] 
+// Acrescentando usando AddRange()
+ myList.AddRange( new List< int > { 9 });  // [2, 5, 6, 5, 9] 
+// Acrescentando usando Insert()
+ myList.Insert(myList.Count, -4 );  // [2, 5, 6, 5, 9, -4] 
+// Acrescentando usando InsertRange()
+ myList.InsertRange(myList.Count, new List<int > { 3 });  // [2, 5, 6, 5, 9, -4, 3]
+Recuperando o último item de uma lista
+À medida que nos aprofundamos nas listas, vamos discutir a aquisição do elemento final de uma lista. Em vários idiomas, isso geralmente requer uma expressão matemática complexa relacionada ao comprimento da lista. Você acreditaria que o C# oferece várias alternativas mais intrigantes?
+
+List< string > myList = new List< string > { "red" , "blue" , ​​"green" }; 
+// Obtém o último item com força bruta usando Count 
+string lastItem = myList[myList.Count - 1 ]; 
+// Remove o último item da lista usando RemoveAt
+ myList.RemoveAt(myList.Count - 1 ); 
+// Obtém o último item usando o método Linq Last()
+ lastItem = myList.Last();
+Verificando se uma lista está vazia
+Para aqueles com experiência em linguagens de tipagem estática, como Java ou C++, a ausência de tipos estáticos em C# pode parecer perturbadora. De fato, não estar ciente do tipo de uma variável pode ser um desafio às vezes; no entanto, também oferece certas vantagens
+
+Por exemplo, a flexibilidade de tipo do C# nos permite verificar se uma lista está vazia por meio de várias técnicas:
+
+Lista< int > minhaLista = new Lista< int >(); 
+// Verifica se uma lista está vazia por seu Count 
+if (myList.Count == 0 ) 
+{ 
+    // a lista está vazia
+ } 
+// Verifica se uma lista está vazia por seu tipo flexibilidade **método preferido** 
+if (!myList .Any()) 
+{ 
+    // a lista está vazia
+ }
+Clonando uma Lista
+Um aspecto fascinante da programação para mim é a duplicação de tipos de dados. No contexto do ambiente baseado em referência que habitamos, raramente é uma tarefa simples, e isso também vale para C#.
+
+Felizmente, quando se trata de replicar uma lista, existem vários métodos disponíveis:
+
+Lista <int> minhaLista = new Lista <int> { 27 , 13 , -11 , 60 , 39 , 15 } ; // Clone uma lista por força bruta List < int > myDuplicateList = myList.Select(item => item).ToList(); // Clone uma lista com o construtor List myDuplicateList = new List < int >(myList); // Clone uma lista com o método de extensão ToList() Linq myDuplicateList = myList.ToList();  // método preferido 
+
+
+
+ 
+
+
+// Clone uma lista com o método DeepCopy (requer implementação personalizada)
+ myDuplicateList = DeepCopy(myList);
+Escrevendo uma lista de compreensão
+As compreensões de lista são um recurso poderoso no Python, mas o C# não possui um equivalente direto. No entanto, podemos obter uma funcionalidade semelhante usando LINQ (Language Integrated Query) em C#. LINQ é uma poderosa sintaxe de consulta que fornece uma maneira concisa e expressiva de trabalhar com coleções. Aqui estão alguns exemplos usando LINQ:
+
+var minhaLista = new  Lista < int > { 2 , 5 , -4 , 6 }; 
+
+// Duplica uma lista 1D de constantes 
+var doubledList = myList.Select(item => item).ToList(); 
+// Duplica e dimensiona uma lista 1D de constantes 
+var scaledList = myList.Select(item => 2 * item).ToList(); 
+// Duplica e filtra não-negativos da lista 1D de constantes 
+var filtradaList = myList.Where(item => item < 0 ).ToList(); 
+// Duplica, filtra e dimensiona uma lista 1D de constantes 
+varfiltradaAndScaledList = minhaLista.Where(item => item < 0 ).Select(item => 2 * item).ToList(); 
+// Gera todos os pares possíveis de duas listas 
+var list1 = new  List < int > { 1 , 3 , 5 }; 
+var lista2 = nova  Lista < int > { 2 , 4 , 6 }; 
+var pairsList = list1.SelectMany(a => list2, (a, b) => (a, b)).ToList();
+Somar Elementos de Duas Listas
+Imagine ter duas listas e seu objetivo é combiná-las em uma lista mesclando seus elementos aos pares. Em outras palavras, você pretende adicionar o primeiro elemento da primeira lista ao primeiro elemento da segunda lista e salvar o resultado em uma nova lista. C# oferece vários métodos para conseguir isso:
+
+var ethernetDevices = new List< int > { 1 , 7 , 2 , 8374163 , 84302738 }; 
+var usbDevices = new List< int > { 1 , 7 , 1 , 2314567 , 0 }; 
+
+// Usando o método Zip do LINQ 
+var allDevices = ethernetDevices.Zip(usbDevices, (x, y) => x + y).ToList(); 
+
+// Usando um loop for 
+var allDevicesForLoop = new List< int >(); 
+para (int i = 0 ; i < ethernetDevices.Count; i++) 
+{ 
+    allDevicesForLoop.Add(ethernetDevices[i] + usbDevices[i]); 
+}
+Convertendo duas listas em um dicionário
+Você pode querer criar um dicionário mapeando uma lista para a outra. Veja como você pode fazer isso usando LINQ em C#:
+
+var columnNames = new  List < string > { "id" , "color" , "estilo" }; 
+var columnValues ​​= new  List < objeto > { 1 , "red" , "bold" }; 
+
+// Converte duas listas em um dicionário com LINQ 
+var nameToValueDict = columnNames. Zip (columnValues, ( chave, valor ) =>  new { chave, valor }). ToDictionary ( x => x. key ,=> x. valor );
+Classificando uma lista de strings
+Classificar strings pode ser um pouco mais complicado do que classificar números, mas, felizmente, C# fornece várias opções para classificar strings:
+
+var minhaLista = new  Lista < string > { "folha" , "cereja" , "peixe" }; 
+
+// Usando o método Sort
+ myList. Ordenar (); 
+// Usando o método Sort com StringComparison.OrdinalIgnoreCase para classificação sem distinção entre maiúsculas e minúsculas
+ myList. Sort ( StringComparer . OrdinalIgnoreCase ); 
+// Usando o método OrderBy com LINQ 
+var sortedList = myList. OrdenarPor ( x => x). ToList (); 
+// Usando o método OrderBy com LINQ para classificação que não diferencia maiúsculas de minúsculas
+var sortedIgnoreCaseList = minhaLista. OrderBy ( x => x, StringComparer . OrdinalIgnoreCase ). ToList ();
+Classificando uma lista de dicionários
+Você provavelmente deseja organizar uma lista de dicionários em alguma ordem, certo? Veja como você pode classificar uma lista de dicionários em C# usando LINQ:
+
+var csvMappingList = new List<Dictionary< string , object >> 
+{ 
+    new Dictionary< string , object > { { "Name" , "Johnny" }, { "Age" , 23 }, { "Favorite Color" , "Blue" } }, 
+    new Dictionary< string , object > { { "Nome" , "Ally" }, { "Idade" , 41 }, { "Cor favorita", "Magenta" } },
+    new Dictionary< string , object > { { "Name" , "Jasmine" }, { "Age" , 29 }, { "Favorite Color" , "Aqua" } } 
+}; 
+
+// Classificar por Idade usando o método OrderBy do LINQ 
+var sortedList = csvMappingList.OrderBy(dict => ( int )dict[ "Age" ]).ToList();
+Esses exemplos demonstram alguns casos de uso comuns para coleções em C#. Usando esses trechos de código, você poderá enfrentar os desafios de programação do dia a dia com mais eficiência.
+
+Meta (5 trechos)
+Já foi dito que programar é entender o código em vez de escrevê-lo. Neste caso, aqui estão alguns testes para exatamente isso. Dê uma olhada nisto:
+
+Código de comentário
+Os comentários são importantes no código. Muitas vezes aconteceu de ler um código sem comentários de alguns meses atrás e não entender de onde vem, o que faz ou por que está ali. Por esse motivo, aqui estão as opções para fazer comentários em C#:
+
+// Aqui está um comentário embutido em C# 
+
+/* Aqui 
+   está 
+   um    comentário 
+   multilinha    em    C# */ 
+
+
+
+
+///  <summary> 
+/// Aqui está um comentário de documentação XML em C#. 
+/// Isso geralmente é usado para fornecer informações adicionais 
+/// sobre o código e é exibido pelo IntelliSense. 
+///  </resumo>
+Desempenho de teste
+Às vezes, você deseja comparar o desempenho de diferentes trechos de código. C# fornece algumas opções diretas, incluindo a Stopwatchclasse e a BenchmarkDotNetbiblioteca. Dê uma olhada:
+
+// Solução de cronômetro 
+using System; 
+usando System.Diagnostics; 
+
+Cronômetro cronômetro = new Cronômetro(); 
+cronômetro.Iniciar(); 
+// trecho de exemplo 
+var result = new List<( int , int )>(); 
+foreach ( int a in  new [] { 1 , 3 , 5 }) 
+{ 
+    foreach ( int b in  new [] { 2 , 4 , 6 }) 
+    {
+        result.Add((a, b)); 
+    } 
+} 
+cronômetro.Stop(); 
+Console.WriteLine( $"Tempo decorrido: {stopwatch.Elapsed} " ); 
+// Solução BenchmarkDotNet 
+// Instale o pacote BenchmarkDotNet NuGet para usar esta solução 
+usando BenchmarkDotNet.Attributes; 
+usando BenchmarkDotNet.Running; 
+public  class  MyBenchmark
+ { 
+    [ Benchmark ] 
+    public List<( int , int )> TestSnippet() 
+    { 
+        var result = new List<( int , int )>();
+        foreach ( int a in  new [] { 1 , 3 , 5 }) 
+        { 
+            foreach ( int b in  new [] { 2 , 4 , 6 }) 
+            { 
+                result.Add((a, b)); 
+            } 
+        } 
+        retorna resultado; 
+    } 
+} 
+public  class  Program
+ { 
+    public  static  void  Main ( string [] args )
+     {
+        var resumo = BenchmarkRunner.Run<MeuBenchmark>(); 
+    } 
+}
+Strings (14 trechos)
+Eles são comumente utilizados para armazenar e manipular dados de texto, como nomes, endereços de e-mail e muito mais. Devido à sua importância, existem inúmeros problemas relacionados a strings que os desenvolvedores costumam encontrar. Nesta seção, exploraremos alguns desses problemas no contexto do C#.
+
+Comparando Strings
+Ao trabalhar com strings, o que costumo perguntar é: Existe alguma forma de conseguir compará-las sem muita complexidade?
+
+Ou se formos mais fundo: precisamos saber a ordem alfabética? Se as duas strings forem diferentes? Ou o que?
+
+Existem diferentes ferramentas que podemos usar para cada cenário. Aqui está uma lista rápida de opções:
+
+string player1 = "Crosby" ; 
+string player2 = "Malkin" ; 
+string player3 = "Guentzel" ; 
+
+// Comparação de força bruta (somente igualdade) 
+bool isSamePlayer = player1.Length == player3.Length; 
+if (isSamePlayer) 
+{ 
+    for ( int i = 0 ; i < player1.Length; i++) 
+    { 
+        if (player1[i] != player3[i]) 
+        { 
+            isSamePlayer = false ; 
+            quebrar ; 
+        } 
+    } 
+} // Bool 
+
+de comparação direta
+isEqual = jogador1 == jogador3; // False 
+bool isGreater = player1.CompareTo(player3) > 0 ; // False 
+bool isLessOrEqual = player2.CompareTo(player2) <= 0 ; // True 
+
+// Verificação de referência 
+bool isSameReference = ReferenceEquals(player1, player1); // True 
+bool isDifferentReference = ReferenceEquals(player2, player1); // Falso
+Aqui você pode ver algumas opções. Por exemplo, podemos verificar a igualdade usando o ==operador. Se precisarmos apenas verificar a ordem alfabética, podemos usar o CompareTo()método. Da mesma forma, C# tem o ReferenceEquals()método para verificar a igualdade de referência.
+
+Verificando Substrings
+Uma tarefa comum ao trabalhar com strings é determinar se uma string contém uma substring específica. Em C#, existem algumas maneiras de resolver esse problema:
+
+string [] endereços = { 
+    "123 Elm Street" , 
+    "531 Oak Street" , 
+    "678 Maple Street"
+ }; 
+
+string rua = "Rua Elm" ; 
+// Força bruta (não recomendado) 
+foreach ( string endereço em endereços) 
+{ 
+    int addressLength = address.Length; 
+    int comprimentorua = comprimento.rua; 
+    for ( int index = 0 ; index <= addressLength - streetLength; index++) 
+    { 
+        string substring = address.Substring(index, streetLength); 
+        if (substring == rua)
+        { 
+            Console.WriteLine(endereço); 
+        } 
+    } 
+} 
+// O método IndexOf() 
+foreach ( string endereço em endereços) 
+{ 
+    if (address.IndexOf(street) >= 0 ) 
+    { 
+        Console.WriteLine(address); 
+    } 
+} 
+// O método Contains() (preferido) 
+foreach ( endereço de string em endereços) 
+{ 
+    if (address.Contains(street)) 
+    { 
+        Console.WriteLine(address); 
+    } 
+}
+Formatando uma String
+Muitas vezes, precisamos formatar strings para exibir informações de maneira mais legível ou estruturada. Aqui estão algumas opções:
+
+string nome = "João" ; 
+int idade = 25 ; 
+
+// Formatação de string usando concatenação
+ Console.WriteLine( "Meu nome é " + nome + ", e eu tenho " + idade + " anos." ); 
+// Formatação de string usando formatação composta
+ Console.WriteLine( "Meu nome é {0} e tenho {1} anos." , nome, idade); 
+// Formatação de string usando interpolação (C# 6.0+)
+ Console.WriteLine( $"Meu nome é {name} e tenho {idade} anos" );
+Sinta-se à vontade para usar qualquer um desses métodos sempre que precisar.
+
+Convertendo uma String para Minúsculas
+Ao formatar ou comparar strings, às vezes é útil converter todos os caracteres em minúsculas. Isso pode ser útil ao verificar a igualdade entre duas strings enquanto ignora as diferenças de maiúsculas e minúsculas. Aqui estão algumas maneiras de fazer isso:
+
+string hero = "All Might" ; 
+
+// Usando o método ToLower() 
+string output = hero.ToLower();
+Dividindo uma string por espaço em branco
+Lidar com conceitos de linguagem, como palavras e frases, pode ser um desafio. A maneira de dividir uma string em palavras que quase todo mundo vai pensar no começo é com espaços. Veja como fazer isso em C#:
+
+string myString = "Olá, família!" ; 
+
+// Usando o método embutido Split() 
+string [] palavras = myString.Split(); 
+foreach ( palavra string em palavras) 
+{ 
+    Console.WriteLine(palavra); 
+}
+Operações de arquivo (10 trechos)
+As operações de arquivo são um requisito comum em muitas tarefas de programação. Nesta seção, exploraremos como trabalhar com arquivos e diretórios em C# usando o System.IOnamespace.
+
+Lendo um arquivo de texto
+Para ler um arquivo de texto em C#, você pode usar a Fileclasse e seu ReadAllText()método:
+
+usando System.IO; 
+
+string filePath = "exemplo.txt" ; 
+string fileContent = File.ReadAllText(filePath); 
+Console.WriteLine(arquivoConteúdo);
+Escrevendo um arquivo de texto
+Para escrever um arquivo de texto em C#, você pode usar a Fileclasse e seu WriteAllText()método:
+
+usando System.IO; 
+
+string filePath = "output.txt" ; 
+string content = "Olá, Mundo!" ; 
+File.WriteAllText(filePath, conteúdo);
+Anexando texto a um arquivo
+Para anexar texto a um arquivo existente em C#, você pode usar a Fileclasse e seu AppendAllText()método:
+
+usando System.IO; 
+
+string filePath = "log.txt" ; 
+string logEntry = "Nova entrada de log" ; 
+File.AppendAllText(filePath, logEntry);
+Lendo um arquivo linha por linha
+Para ler um arquivo linha por linha em C#, você pode usar a Fileclasse e seu ReadLines()método:
+
+usando System.IO; 
+
+string filePath = "exemplo.txt" ; 
+foreach ( linha de string em File.ReadLines(filePath)) 
+{ 
+    Console.WriteLine(line); 
+}
+Criando um diretório
+Para criar um diretório em C#, você pode usar a Directoryclasse e seu CreateDirectory()método:
+
+usando System.IO; 
+
+string directoryPath = "new_directory" ; 
+Directory.CreateDirectory(directoryPath);
+Excluindo um diretório
+Para excluir um diretório em C#, você pode usar a Directoryclasse e seu Delete()método:
+
+usando System.IO; 
+
+string directoryPath = "old_directory" ; 
+Directory.Delete(directoryPath, true );
+Verificando se existe um arquivo ou diretório
+Para verificar se um arquivo ou diretório existe em C#, você pode usar as classes Filee Directorycom seus respectivos Exists()métodos:
+
+usando System.IO; 
+
+string filePath = "exemplo.txt" ; 
+string directoryPath = "example_directory" ; 
+bool arquivoExists = File.Exists(filePath); 
+bool diretórioExists = Directory.Exists(directoryPath);
+Obtendo arquivos em um diretório
+Para obter uma lista de arquivos em um diretório em C#, você pode usar a Directoryclasse e seu GetFiles()método:
+
+usando System.IO; 
+
+string directoryPath = "example_directory" ; 
+string [] arquivos = Directory.GetFiles(directoryPath); 
+foreach ( arquivo de string em arquivos) 
+{ 
+    Console.WriteLine(arquivo); 
+}
+Copiando um arquivo
+Para copiar um arquivo em C#, você pode usar a Fileclasse e seu Copy()método:
+
+usando System.IO; 
+
+string sourceFile = "exemplo.txt" ; 
+string destinationFile = "copy_example.txt" ; 
+File.Copy(sourceFile, destinationFile);
+Movendo um arquivo
+Para mover um arquivo em C#, você pode usar a Fileclasse e seu Move()método:
+
+usando System.IO; 
+
+string sourceFile = "exemplo.txt" ; 
+string destinationFile = "moved_example.txt" ; 
+File.Move(sourceFile, destinationFile);
+Tratamento de exceções (3 trechos)
+Lidar com exceções é uma parte essencial da escrita de código robusto e sustentável. Nesta seção, exploraremos algumas maneiras comuns de lidar com exceções em C#.
+
+Bloco Try-Catch Básico
+Para lidar com exceções usando um bloco try-catch em C#:
+
+try
+ { 
+    // Código que pode lançar uma exceção
+ } 
+catch (Exception ex) 
+{ 
+    Console.WriteLine( $"Erro: {ex.Message} " ); 
+}
+Capturando Exceções Específicas
+Para capturar exceções específicas em C#, você pode usar vários blocos catch:
+
+try
+ { 
+    // Código que pode gerar diferentes exceções
+ } 
+catch (FileNotFoundException ex) 
+{ 
+    Console.WriteLine( $"Arquivo não encontrado: {ex.FileName} " ); 
+} 
+catch (IOException ex) 
+{ 
+    Console.WriteLine( $"Erro de E/S: {ex.Message} " ); 
+} 
+catch (Exception ex) 
+{ 
+    Console.WriteLine( $"Erro geral: {ex.Message} " ); 
+}
+Usando o Bloco Final
+Para executar o código, independentemente de uma exceção ter sido lançada ou não, você pode usar o bloco final em C#:
+
+try
+ { 
+    // Código que pode lançar uma exceção
+ } 
+catch (Exception ex) 
+{ 
+    Console.WriteLine( $"Erro: {ex.Message} " ); 
+} 
+finalmente
+ { 
+    // Código que sempre será executado
+ }
+LINQ (10 trechos)
+Language Integrated Query (LINQ) é um recurso poderoso em C# para consultar e manipular dados. Nesta seção, exploraremos algumas operações LINQ comuns usando o System.Linqnamespace.
+
+Filtrando uma Coleção
+Para filtrar uma coleção usando LINQ, você pode usar o Where()método:
+
+usando System.Linq; 
+
+Lista< int > números = new Lista< int > { 1 , 2 , 3 , 4 , 5 }; 
+List<int> evenNumbers = numeros. Onde (x => x % 2 == 0 ). ToList ();
+Selecionando uma propriedade de uma coleção
+Para selecionar uma propriedade específica de uma coleção usando LINQ, você pode usar o Select()método:
+
+usando System.Linq; 
+
+List< string > nomes = new List< string > { "John" , "Jane" , "Doe" }; 
+List< int > nameLengths = names.Select(x => x.Length).ToList();
+Classificando uma coleção
+Para classificar uma coleção usando LINQ, você pode usar o OrderBy()método:
+
+usando System.Linq; 
+
+Lista< int > números = new Lista< int > { 5 , 3 , 1 , 4 , 2 }; 
+List< int > sortedNumbers = numeros. OrdenarPor (x => x). ToList ();
+Agrupando uma Coleção
+Para agrupar uma coleção usando LINQ, você pode usar o GroupBy()método:
+
+usando System.Linq; 
+
+List< string > nomes = new List< string > { "John" , "Jane" , "Doe" }; 
+var grupos = nomes.GroupBy(x => x.Length); 
+foreach ( var  group  in groups) 
+{ 
+    Console.WriteLine( $"Nomes com caracteres { group .Key} :" ); 
+    foreach ( nome da string no  grupo ) 
+    { 
+        Console.WriteLine(nome); 
+    } 
+}
+Unindo Coleções
+Para unir duas coleções usando LINQ, você pode usar o Join()método:
+
+usando System.Linq; 
+
+List< string > nomes = new List< string > { "John" , "Jane" , "Doe" }; 
+List< int > idades = new List< int > { 30 , 25 , 35 }; 
+var nameAgePairs = names.Join(idades, nome => nomes.IndexOf(nome), idade => idades.IndexOf(idade), (nome, idade) => new { Nome = nome, Idade = idade }); 
+foreach ( var pair em nameAgePairs) 
+{ 
+    Console.{pair.Name} : {pair.Idade} " );
+}
+Tomando os primeiros n elementos
+Para pegar os primeiros n elementos de uma coleção usando LINQ, você pode usar o Take()método:
+
+usando System.Linq; 
+
+Lista< int > números = new Lista< int > { 1 , 2 , 3 , 4 , 5 }; 
+List< int > firstThreeNumbers = numbers.Take( 3 ).ToList();
+Ignorando os primeiros n elementos
+Para pular os primeiros n elementos de uma coleção usando LINQ, você pode usar o Skip()método:
+
+usando System.Linq; 
+
+Lista< int > números = new Lista< int > { 1 , 2 , 3 , 4 , 5 }; 
+List<int> números restantes = números. Pular ( 2 ). ToList ();
+Verificando se existe um elemento
+Para verificar se existe um elemento em uma coleção usando LINQ, você pode usar o Any()método:
+
+usando System.Linq; 
+
+Lista< int > números = new Lista< int > { 1 , 2 , 3 , 4 , 5 }; 
+bool hasEvenNumber = números.Any(x => x % 2 == 0 );c
+Contando Elementos
+Para contar o número de elementos em uma coleção usando LINQ, você pode usar o Count()método:
+
+usando System.Linq; 
+
+Lista< int > números = new Lista< int > { 1 , 2 , 3 , 4 , 5 }; 
+int evenNumberCount = números.Count(x => x % 2 == 0 );
+Agregando Elementos
+Para agregar elementos em uma coleção usando LINQ, você pode usar o Aggregate()método:
+
+usando System.Linq; 
+
+Lista< int > números = new Lista< int > { 1 , 2 , 3 , 4 , 5 }; 
+int soma = números.Aggregate((x, y) => x + y);
+Segmentação (9 trechos)
+Threading é um aspecto importante da programação simultânea em C#. Nesta seção, exploraremos como trabalhar com threads usando o System.Threadingnamespace.
+
+Criando um novo tópico
+Para criar um novo thread em C#, você pode usar a Threadclasse:
+
+usando System.Threading; 
+
+void  PrintNumbers ()
+ { 
+    for ( int i = 1 ; i <= 5 ; i++) 
+    { 
+        Console.WriteLine(i); 
+    } 
+} 
+Thread newThread = new Thread(PrintNumbers);
+Iniciando um Tópico
+Para iniciar um thread em C#, você pode usar o Start()método:
+
+newThread.Start();
+Entrando em um Tópico
+Para aguardar o término da execução de um thread em C#, você pode usar o Join()método:
+
+newThread.Join();
+Suspensão do Tópico
+Para pausar o thread atual por um tempo especificado em C#, você pode usar o Sleep()método:
+
+Thread.Sleep( 1000 ); // Durma por 1 segundo
+Usando pools de threads
+Para usar um pool de threads em C#, você pode usar a ThreadPoolclasse:
+
+usando System.Threading; 
+
+ThreadPool.QueueUserWorkItem(PrintNumbers);
+Usando Tarefas
+Para criar e executar uma tarefa em C#, você pode usar a Taskclasse:
+
+usando System.Threading.Tasks; 
+
+Task.Run(PrintNumbers);
+Aguardando Tarefas
+Para aguardar a conclusão de uma tarefa em C#, você pode usar o Wait()método:
+
+Tarefa tarefa = Task.Run(PrintNumbers); 
+tarefa.Wait();
+Cancelando uma tarefa
+Para cancelar uma tarefa em C#, você pode usar a CancellationTokenSourceclasse:
+
+usando System.Threading; 
+usando System.Threading.Tasks; 
+
+CancellationTokenSource cts = new CancellationTokenSource(); 
+Task.Run(() => PrintNumbers(cts.Token), cts.Token); 
+cts.Cancelar();
+Manipulando Exceções de Tarefas
+Para lidar com exceções em uma tarefa, você pode usar um bloco try-catch dentro da tarefa:
+
+usando System.Threading.Tasks; 
+
+Task.Run(() => 
+{ 
+    try
+     { 
+        // Código que pode lançar uma exceção
+     } 
+    catch (Exception ex) 
+    { 
+        Console.WriteLine( $"Erro: {ex.Message} " ); 
+    } 
+});
+Esperamos que esta variedade diversificada de 100 trechos de código C# tenha se mostrado esclarecedora e útil em seus esforços diários de programação.
+
+Se você achou esta compilação útil ou tem algum favorito, adoraríamos ouvir de você! Sinta-se à vontade para compartilhar seus pensamentos e experiências na seção de comentários abaixo.
+
+Lembre-se de que a comunidade C# prospera com a troca de conhecimentos e ideias, portanto, não hesite em contribuir com suas ideias para o benefício de outros desenvolvedores. Codificação feliz!
