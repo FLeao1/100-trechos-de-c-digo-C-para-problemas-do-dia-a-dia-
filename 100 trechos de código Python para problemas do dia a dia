@@ -1,0 +1,602 @@
+Veja também:
+https://therenegadecoder.com/code/python-code-snippets-for-everyday-problems/
+
+Repositório de trechos de código
+Ao longo deste artigo, você encontrará uma série de trechos de código Python. Cada um desses trechos de código foi extraído da série How to Python . Naturalmente, houve um esforço para criar um repositório do GitHubAbre em uma nova guia. para todos esses snippets:
+
+Crie um repositório do Github, por favor
+Como resultado, decidi criar um repositório para todos esses snippets. Ao visitar, você encontrará uma tabela de artigos no README com links para vários recursos, incluindo notebooks Jupyter, tweets de desafio #RenegadePythonAbre em uma nova guia. e vídeos do YouTube.
+
+Pessoalmente, é demais para mim manter, mas dou as boas-vindas para ajudá-lo a crescer. Enquanto isso, continuarei atualizando este artigo. Caso contrário, vamos à lista!
+
+problemas cotidianos
+Nesta seção, veremos vários cenários comuns que surgem e como resolvê-los com o código Python. Especificamente, compartilharei uma breve explicação do problema com uma lista de soluções de código Python. Então, vou vincular todos os recursos que tenho.
+
+Para ajudá-lo a navegar neste artigo, criei seções separadas para cada tipo de problema que você pode enfrentar. Por exemplo, reuni uma seção sobre strings e uma seção sobre listas. Além disso, classifiquei essas seções em ordem alfabética. Dentro de cada seção, classifiquei os problemas por complexidade percebida. Em outras palavras, os problemas que acredito serem mais diretos vêm primeiro.
+
+Espero que ajude a manter as coisas organizadas para você!
+
+Dicionários (17 trechos)
+Sintaxe do dicionário Python usando carbono: my_dictionary = {
+Uma das estruturas de dados favoritas em Python é o dicionário que mapeia pares de itens. Por exemplo, podemos usar um dicionário para contar o número de palavras que aparecem neste artigo. Cada chave no dicionário seria uma palavra única neste artigo. Então, cada palavra seria mapeada para sua contagem. Como você provavelmente pode imaginar, esse tipo de estrutura é muito útil, mas vem com suas peculiaridades. Vamos dar uma olhada em alguns!
+
+Mesclando dois dicionários
+Nesta coleção, falamos muito sobre como lidar com estruturas de dados como listas e dicionários. Bem, este não é diferente. Em particular, estamos pensando em mesclar dois dicionários. Claro, combinar dois dicionários traz riscos. Por exemplo, e se houver chaves duplicadas? Felizmente, temos soluções para isso:
+
+yusuke_power = { "Yusuke Urameshi" : "Arma Espiritual" }
+hiei_power = { "Hiei" : "Jagan Eye" }
+poderes = ditado ()
+# força bruta
+para dicionário em ( yusuke_power, hiei_power ) : 
+    para chave, valor no dicionário. itens () :
+        poderes [ chave ] = valor
+# Compreensão do Dicionário
+poderes = { chave: valor para d em ( yusuke_power, hiei_power ) para chave, valor em d. itens ()}  
+# Copie e atualize
+poderes = yusuke_power. copiar ()
+poderes. atualizar ( hiei_power )
+# Descompactação do dicionário (Python 3.5+)
+poderes = { **yusuke_power, **hiei_power }
+# Função compatível com versões anteriores para qualquer número de dicts
+def merge_dicts ( *dicts: dict ) : 
+    dict_merged = dict ()
+    para dicionário em dicts:
+        merge_dict. atualizar ( dicionário )
+    return merged_dict
+# Operador de união de dicionário (Python 3.9+ talvez?)
+poderes = yusuke_power | hiei_power
+Se você estiver interessado, tenho um artigo que aborda exatamente esse tópico chamado “ Como mesclar dois dicionários em Python ”, que apresenta quatro soluções, bem como métricas de desempenho.
+
+Invertendo um dicionário
+Às vezes, quando temos um dicionário, queremos ser capazes de inverter suas chaves e valores. Claro, existem preocupações como “como lidamos com valores duplicados?” e “e se os valores não forem hasháveis?” Dito isto, no caso simples, existem algumas soluções:
+
+meu_dito = {
+  'Izuku Midoriya' : 'Um por Todos' ,
+  'Katsuki Bakugo' : 'Explosão' ,
+  'All Might' : 'Um por Todos' ,
+  'Ochaco Uraraka' : 'Gravidade Zero'
+}
+# Use para inverter dicionários que possuem valores únicos
+my_inverted_dict = dict ( mapa ( invertido, my_dict. itens ()))
+# Use para inverter dicionários que possuem valores únicos
+my_inverted_dict = { valor: chave para chave, valor em my_dict. itens ()}
+# Use para inverter dicionários que possuem valores não únicos
+de coleções importar defaultdict
+my_inverted_dict = defaultdict ( lista )
+{ my_inverted_dict [ v ] . anexar ( k ) para k, v em my_dict. itens ()} 
+# Use para inverter dicionários que possuem valores não únicos
+meu_dito_invertido = ditado ()
+para chave, valor em my_dict. itens () :
+    my_inverted_dict. setdefault ( valor, lista ()) . anexar ( chave )
+# Use para inverter dicionários que possuem listas de valores
+my_dict = { valor: chave para chave em my_inverted_dict para valor em my_inverted_dict [ chave ]}
+Para obter mais explicações, confira meu artigo intitulado “ How to Invert a Dictionary in Python ”. Ele inclui um detalhamento de cada solução, suas métricas de desempenho e quando são aplicáveis. Da mesma forma, tenho um vídeo no YouTubeAbre em uma nova guia. que aborda o mesmo assunto.
+
+Executando uma pesquisa reversa no dicionário
+Anteriormente, falamos sobre inverter um dicionário, o que é bom em algumas circunstâncias. É claro que, se nosso dicionário for enorme, pode não fazer sentido inverter completamente o ditado. Em vez disso, podemos procurar uma chave com base em um valor:
+
+my_dict = { "cor" : "vermelho" , "largura" : 17 , "altura" : 19 }
+value_to_find = "vermelho"
+# Solução de força bruta (mais rápida) -- chave única
+para chave, valor em my_dict. itens () :
+    if value == value_to_find:
+        print ( f '{chave}: {valor}' )
+        quebrar
+# Solução de força bruta -- várias chaves
+para chave, valor em my_dict. itens () :
+    if value == value_to_find:
+        print ( f '{chave}: {valor}' )
+# Expressão do gerador -- chave única
+key = next ( key for key, value in my_dict. items () if value == value_to_find ) 
+print ( f '{key}: {value_to_find}' )
+# Expressão do gerador -- chaves múltiplas
+exp = ( chave para chave, valor em my_dict. items () if value == value_to_find ) 
+para chave em exp:
+    print ( f '{chave}: {valor}' )
+# Solução de dicionário inverso -- chave única
+my_inverted_dict = { valor: chave para chave, valor em my_dict. itens ()}
+print ( f '{my_inverted_dict[value_to_find]}: {value_to_find}' )
+# Solução de dicionário inverso (mais lenta) -- chaves múltiplas
+meu_dito_invertido = ditado ()
+para chave, valor em my_dict. itens () :
+    my_inverted_dict. setdefault ( valor, lista ()) . anexar ( chave )
+print ( f '{my_inverted_dict[value_to_find]}: {value_to_find}' )
+Se isso parecer útil, você pode verificar o artigo de origem intitulado “ Como realizar uma pesquisa reversa de dicionário em Python ”. Uma das coisas que adorei ao escrever este artigo foi aprender sobre expressões geradoras. Se você os está vendo pela primeira vez, talvez queira dar uma olhada.
+
+Entrada/saída (12 trechos)
+Python Entrada/Saída Usando Carbono
+No desenvolvimento de software, Entrada/Saída (E/S) refere-se a qualquer momento em que um programa busca dados externos ao código-fonte. Exemplos comuns de E/S incluem leitura e gravação em bancos de dados, arquivos e interfaces de linha de comando. Naturalmente, o Python faz um ótimo trabalho ao tornar a E/S acessível, mas ainda há desafios. Aqui estão alguns!
+
+Imprimindo na mesma linha
+Ao longo de uma linha semelhante à formatação de strings, às vezes você só precisa imprimir na mesma linha em Python. Como o comando `print`python é atualmente projetado, ele aplica automaticamente uma nova linha ao final de sua string. Felizmente, existem algumas maneiras de contornar isso:
+
+# Python 2 apenas
+imprimir "Live PD" ,
+# Compatível com versões anteriores (também mais rápido)
+sistema de importação
+sys.stdout. escreva ( "Breaking Bad" )
+# Python 3 apenas
+print ( "Mob Psycho 100" , end= "" )
+Como sempre, se você planeja usar qualquer uma dessas soluções, confira o artigo intitulado “ How to Print on the Same Line in Python ” para casos de uso adicionais e advertências.
+
+Criando um atalho de script Python
+Às vezes, quando você cria um script, deseja executá-lo convenientemente com o clique de um botão. Felizmente, existem várias maneiras de fazer isso.
+
+Primeiro, podemos criar um atalho do Windows com as seguintes configurações:
+
+\path\to\trc-image-titler. py -o \path\to\output
+Da mesma forma, também podemos criar um arquivo batch com o seguinte código:
+
+@echo desligado
+\path\to\trc-image-titler. py -o \path\to\output
+Finalmente, podemos criar um script bash com o seguinte código:
+
+#!/bin/sh
+python /caminho/para/trc-image-titler. py -o /caminho/para/saída
+Se você estiver procurando por mais explicações, confira o artigo intitulado “ How to Make a Python Script Shortcut with Arguments ”.
+
+Verificando se existe um arquivo
+Uma das vantagens incríveis do Python é como é fácil gerenciar arquivos. Ao contrário do Java, o Python possui uma sintaxe integrada para leitura e gravação de arquivos. Como resultado, verificar se existe um arquivo é uma tarefa bastante breve:
+
+# Força bruta com um bloco try-except (Python 3+)
+tente :
+    com aberto ( '/caminho/para/arquivo' , 'r' ) como fh:  
+        passar
+exceto FileNotFoundError:
+    passar
+# Aproveite o pacote do sistema operacional (possível condição de corrida)
+import os
+existe = os.path. isfile ( '/caminho/para/arquivo' )
+# Envolva o caminho em um objeto para funcionalidade aprimorada
+from pathlib import Path
+config = Caminho ( '/caminho/para/arquivo' ) 
+se config. is_file () :
+    passar
+Como sempre, você pode aprender mais sobre essas soluções em meu artigo intitulado “ How to Check if a File Exists in Python ”, que apresenta três soluções e métricas de desempenho.
+
+Analisando uma Planilha
+Um dos casos de uso mais interessantes do Python é a ciência de dados. Infelizmente, porém, isso significa lidar com muitos dados brutos em vários formatos, como arquivos de texto e planilhas. Felizmente, o Python tem muitos utilitários integrados para ler diferentes formatos de arquivo. Por exemplo, podemos analisar uma planilha com facilidade:
+
+# Solução de força bruta
+csv_mapping_list = []
+com open ( "/path/to/data.csv" ) como my_data:  
+  contagem_linha = 0
+  para linha em my_data:
+    lista_linha = [ val. strip () para val na linha. dividir ( "," )] 
+    se line_count == 0 :
+      cabeçalho = lista_linha
+    senão :
+      row_dict = { chave: valor para chave, valor em zip ( cabeçalho, row_list )} 
+      csv_mapping_list. anexar ( row_dict )
+    contagem_linhas += 1
+# Solução de leitor de CSV
+importar csv
+csv_mapping_list = []
+com open ( "/path/to/data.csv" ) como my_data:  
+    csv_reader = csv. leitor ( meus_dados, delimitador= "," )
+    contagem_linha = 0
+    para linha em csv_reader:
+        se line_count == 0 :
+            cabeçalho = linha
+        senão :
+            row_dict = { chave: valor para chave, valor em zip ( cabeçalho, linha )} 
+            csv_mapping_list. anexar ( row_dict )
+        contagem_linhas += 1
+# Solução CSV DictReader
+importar csv
+com open ( "/path/to/dict.csv" ) como my_data:  
+    csv_mapping_list = lista ( csv. DictReader ( meus_dados ))
+Nesse caso, tentamos obter nossa saída em uma lista de dicionários. Se você quiser saber mais sobre como isso funciona, confira o artigo completo intitulado “ How to Parse a Spreadsheet in Python ”.
+
+Listas (43 trechos)
+Sintaxe de lista do Python usando carbono
+Quando se trata de estruturas de dados , nenhuma é mais onipresente do que a lista. Em Python, em particular, a lista é um array dinâmico que usa indexação baseada em zero. Em outras palavras, podemos adicionar e remover itens sem realmente nos importarmos muito com a aparência sob o capô. Isso torna as listas realmente intuitivas. Claro, como outras estruturas de dados nesta lista (sem trocadilhos), as listas vêm com seus próprios desafios. Vamos dar uma olhada!
+
+Adicionando um item a uma lista
+À medida que essa coleção se expandia, comecei a me interessar pelos fundamentos do Python. Em outras palavras, quais são algumas coisas que iniciantes absolutos podem querer fazer e quantas maneiras diferentes existem para fazer essas coisas? Uma dessas coisas foi adicionar um item a uma lista.
+
+Felizmente, o Python tem várias maneiras de adicionar itens a listas. Por exemplo, existe o popular método `append()`python. No entanto, existem toneladas de outras opções. Aqui estão cinco:
+
+# Lista definida estaticamente
+minha_lista = [ 2 , 5 , 6 ]
+# Anexando usando atribuição de fatia
+minha_lista [ len ( minha_lista ) : ] = [ 5 ] # [2, 5, 6, 5]  
+# Anexando usando append()
+minha lista. anexar ( 9 ) # [2, 5, 6, 5, 9]  
+# Anexando usando extend()
+minha lista. estender ([ -4 ]) # [2, 5, 6, 5, 9, -4]  
+# Anexando usando insert()
+minha lista. inserir ( len ( minha_lista ) , 3 ) # [2, 5, 6, 5, 9, -4, 3]  
+Naturalmente, escrevi tudo sobre essas soluções em mais detalhes em meu artigo intitulado “ Como adicionar um item a uma lista em Python ”.
+
+Recuperando o último item de uma lista
+Já que estamos falando de listas, vamos falar sobre como obter o último item de uma lista. Na maioria das linguagens, isso envolve alguma expressão matemática complicada envolvendo o comprimento da lista. E se eu dissesse que existem várias soluções mais interessantes em Python?
+
+minha_lista = [ 'vermelho' , 'azul' , 'verde' ]
+# Pegue o último item com força bruta usando len
+último_item = minha_lista [ len ( minha_lista ) - 1 ]
+# Remova o último item da lista usando pop
+último_item = minha_lista. pop () 
+# Obtém o último item usando índices negativos *método preferido e mais rápido*
+último_item = minha_lista [ -1 ]
+# Obtenha o último item usando a descompactação iterável
+*_, último_item = minha_lista
+Como sempre, você pode aprender mais sobre essas soluções em meu artigo intitulado “ How to Get the Last Item of a List in Python ”, que apresenta um desafio, métricas de desempenho e um vídeo do YouTubeAbre em uma nova guia. .
+
+Verificando se uma lista está vazia
+Se você vem de uma linguagem de tipagem estática como Java ou C, pode ficar incomodado com a falta de tipos estáticos em Python. Claro, não saber o tipo de uma variável às vezes pode ser frustrante, mas também há vantagens. Por exemplo, podemos verificar se uma lista está vazia por sua flexibilidade de tipo—entre outros métodos:
+
+minha_lista = lista ()
+# Verifica se uma lista está vazia por seu tamanho
+if len ( minha_lista ) == 0 : 
+    pass # a lista está vazia  
+# Verifica se uma lista está vazia por comparação direta (funciona apenas para listas)
+se minha_lista == [] :
+    pass # a lista está vazia  
+# Verifique se uma lista está vazia por sua flexibilidade de tipo **método preferido**
+se não minha_lista: 
+    pass # a lista está vazia  
+Se você quiser saber mais sobre essas três soluções, confira meu artigo intitulado “ How to Check if a List in Empty in Python ”. Se você estiver em apuros, confira meu vídeo no YouTube, que aborda o mesmo tópicoAbre em uma nova guia. .
+
+Clonando uma Lista
+Um dos meus assuntos favoritos em programação é copiar tipos de dados. Afinal, nunca é fácil neste mundo baseado em referências em que vivemos, e isso também é verdade para o Python. Felizmente, se quisermos copiar uma lista, existem algumas maneiras de fazer isso:
+
+minha_lista = [ 27 , 13 , -11 , 60 , 39 , 15 ]
+# Clone uma lista por força bruta
+minha_duplicada_lista = [ item por item em minha_lista ]
+# Clone uma lista com uma fatia
+minha_lista_duplicada = minha_lista [ : ]
+# Clone uma lista com o construtor de lista
+minha_lista_duplicada = lista ( minha_lista ) 
+# Clone uma lista com a função de cópia (Python 3.3+)
+minha_lista_duplicada = minha_lista. copy () # método preferido  
+# Clone uma lista com o pacote de cópia
+cópia importada
+minha_duplicada_lista = copiar. copiar ( minha_lista )
+my_deep_duplicate_list = copiar. cópia profunda ( minha_lista )
+# Clonar uma lista com multiplicação?
+my_duplicate_list = my_list * 1 # não faça isso  
+Quando se trata de clonagem, é importante estar ciente da diferença entre cópias rasas e profundas. Felizmente, tenho um artigo que cobre esse tópico .
+
+Por fim, você pode descobrir mais sobre as soluções listadas acima em meu artigo intitulado “ How to Clone a List in Python ”. Além disso, você pode encontrar valor em meu vídeo relacionado do YouTube intitulado “ 7 maneiras de copiar uma lista em Python apresentando os Pittsburgh PenguinsAbre em uma nova guia. ”.
+
+Escrevendo uma lista de compreensão
+Um dos meus tópicos favoritos do Python para conversar é a compreensão da lista. Como alguém que cresceu em linguagens como Java, C/C++ e C#, nunca tinha visto nada parecido com uma compreensão de lista até brincar com Python. Agora, estou positivamente obcecado por eles. Como resultado, reuni uma lista inteira de exemplos:
+
+minha_lista = [ 2 , 5 , -4 , 6 ]
+# Duplica uma lista 1D de constantes
+[ item por item em minha_lista ]
+# Duplique e dimensione uma lista 1D de constantes
+[ 2 * item por item em minha_lista ]
+# Duplicar e filtrar não-negativos da lista 1D de constantes
+[ item por item em minha_lista se item < 0 ] 
+# Duplique, filtre e dimensione uma lista 1D de constantes
+[ 2 * item para item em minha_lista se item < 0 ] 
+# Gera todos os pares possíveis de duas listas
+[( a, b ) para a em ( 1 , 3 , 5 ) para b em ( 2 , 4 , 6 )]    
+minha_lista = [[ 1 , 2 ] , [ 3 , 4 ]]
+# Duplicar uma lista 2D
+[[ item para item na sub_lista ] para sub_lista na minha_lista ] 
+# Duplica uma lista n-dimensional
+def deep_copy ( to_copy ) : 
+    se o tipo ( to_copy ) for lista:  
+        return [ deep_copy ( item ) para o item em to_copy ]  
+    senão :
+        voltar para_cópia
+Como sempre, você pode encontrar uma explicação mais formal de todo esse código em meu artigo intitulado “ How to Write a List Comprehension in Python ”. Como um bônus adicional, tenho um vídeo do YouTube que compartilha vários exemplos de compreensão de listaAbre em uma nova guia. .
+
+Somar Elementos de Duas Listas
+Digamos que você tenha duas listas e queira mesclá-las em uma única lista por elemento. Em outras palavras, você deseja adicionar o primeiro elemento da primeira lista ao primeiro elemento da segunda lista e armazenar o resultado em uma nova lista. Bem, existem várias maneiras de fazer isso:
+
+ethernet_devices = [ 1 , [ 7 ] , [ 2 ] , [ 8374163 ] , [ 84302738 ]]
+usb_devices = [ 1 , [ 7 ] , [ 1 ] , [ 2314567 ] , [ 0 ]]
+# O caminho mais longo
+todos_dispositivos = [
+    dispositivos_ethernet [ 0 ] + dispositivos_usb [ 0 ] ,
+    dispositivos_ethernet [ 1 ] + dispositivos_usb [ 1 ] ,
+    ethernet_devices [ 2 ] + usb_devices [ 2 ] ,
+    ethernet_devices [ 3 ] + usb_devices [ 3 ] ,
+    dispositivos_ethernet [ 4 ] + dispositivos_usb [ 4 ]
+]
+# Alguma magia de compreensão
+all_devices = [ x + y para x, y em zip ( ethernet_devices, usb_devices )] 
+# Vamos usar mapas
+operador de importação
+all_devices = lista ( map ( operator.add, ethernet_devices, usb_devices ))
+# Não podemos esquecer nossa biblioteca de computação favorita
+importar numpy como np
+todos_dispositivos = np. adicionar ( dispositivos_ethernet, dispositivos_usb )
+Se você quiser uma explicação mais profunda, confira meu artigo intitulado “ Como somar elementos de duas listas em Python ”, que inclui até um desafio divertido. Da mesma forma, você pode obter algum valor do meu vídeo do YouTube sobre o mesmo tópicoAbre em uma nova guia. .
+
+Convertendo duas listas em um dicionário
+Anteriormente, falamos sobre a soma de duas listas em Python. Acontece que há muito que podemos fazer com duas listas. Por exemplo, poderíamos tentar mapear um no outro para criar um dicionário.
+
+Tal como acontece com muitos destes problemas, existem algumas preocupações. Por exemplo, e se as duas listas não forem do mesmo tamanho? Da mesma forma, e se as chaves não forem exclusivas ou passíveis de hash? Dito isso, no caso simples, existem algumas soluções diretas:
+
+nomes_colunas = [ 'id' , 'cor' , 'estilo' ]
+valores_colunas = [ 1 , 'vermelho' , 'negrito' ]
+# Converte duas listas em um dicionário com zip e o construtor dict
+name_to_value_dict = dict ( zip ( column_names, column_values ​​))
+# Converte duas listas em um dicionário com compreensão de dicionário
+name_to_value_dict = { chave:valor para chave, valor em zip ( coluna_nomes, valores_colunas )} 
+# Converte duas listas em um dicionário com um loop
+name_value_tuples = zip ( colunas_nomes, colunas_valores ) 
+nome_para_valor_dito = {} 
+para chave, valor em name_value_tuples:
+    if chave em name_to_value_dict:
+        pass # Inserir lógica para lidar com chaves duplicadas 
+    senão :
+        name_to_value_dict [ chave ] = valor
+Mais uma vez, você pode encontrar uma explicação para cada uma dessas soluções e muito mais em meu artigo intitulado “ How to Convert Two Lists Into a Dictionary in Python ”. Se você é uma pessoa visual, talvez prefira meu vídeo do YouTube, que abrange listas de mapeamento para dicionáriosAbre em uma nova guia. também.
+
+Classificando uma lista de strings
+Ordenar é uma tarefa comum que se espera que você saiba implementar em Ciência da Computação. Apesar do intenso foco em algoritmos de classificação na maioria dos currículos, ninguém realmente diz a você como a classificação pode realmente ser complicada. Por exemplo, classificar números é simples, mas e classificar strings? Como decidimos um pedido adequado? Felizmente, existem muitas opções em Python:
+
+minha_lista = [ "folha" , "cereja" , "peixe" ]
+# Método de força bruta usando classificação de bolha
+minha_lista = [ "folha" , "cereja" , "peixe" ]
+tamanho = len ( minha_lista )
+para i no intervalo ( tamanho ) : 
+    para j no intervalo ( tamanho ) : 
+        if minha_lista [ i ] < minha_lista [ j ] : 
+            temp = minha_lista [ i ]
+            minha_lista [ i ] = minha_lista [ j ]
+            minha_lista [ j ] = temp
+# Classificação de lista genérica *mais rápida*
+minha lista. ordenar ()
+# Ordenação da lista de dobras de caixa
+minha lista. sort ( key=str.casefold )
+# Lista genérica ordenada
+minha_lista = ordenada ( minha_lista ) 
+# Classificação de lista personalizada usando casefold (>= Python 3.3)
+minha_lista = classificada ( minha_lista, chave=str.casefold ) 
+# Classificação de lista personalizada usando a localidade atual
+local de importação
+de functools importar cmp_to_key
+minha_lista = classificada ( minha_lista, chave= cmp_to_key ( locale.strcoll )) 
+ 
+# Classificação de lista reversa personalizada usando casefold (>= Python 3.3)
+minha_lista = classificada ( minha_lista, chave=str.casefold, reverse= True )
+Se você está curioso sobre como algumas dessas soluções funcionam, ou apenas quer saber quais são alguns dos riscos potenciais, confira meu artigo intitulado “How to Sort a List of Strings in Python ”.
+
+Classificando uma lista de dicionários
+Uma vez que você tenha uma lista de dicionários, você pode querer organizá-los em alguma ordem específica. Por exemplo, se os dicionários tiverem uma chave para data, podemos tentar classificá-los em ordem cronológica. Felizmente, a classificação é outra tarefa relativamente indolor:
+
+csv_mapping_list = [
+  {
+    "Nome" : "Jeremy" ,
+    "Idade" : 25 ,
+    "Cor favorita" : "Azul"
+  } ,
+  {
+     "Nome" : "Aliado" ,
+     "Idade" : 41 ,
+     "Cor favorita" : "Magenta"
+  } ,
+  {
+    "Nome" : "Jasmim" ,
+    "Idade" : 29 ,
+    "Cor favorita" : "Aqua"
+  }
+]
+# Classificação personalizada
+tamanho = len ( csv_mapping_list )
+para i no intervalo ( tamanho ) : 
+    min_index = i
+    para j no intervalo ( i + 1 , tamanho ) : 
+        if csv_mapping_list [ min_index ][ "Idade" ] > csv_mapping_list [ j ][ "Idade" ] : 
+            min_index = j
+    csv_mapping_list [ i ] , csv_mapping_list [ min_index ] = csv_mapping_list [ min_index ] , csv_mapping_list [ i ]
+# Função de classificação de lista
+csv_mapping_list. sort ( key= lambda item: item. get ( "Idade" ))
+# Ordenação de lista usando itemgetter
+do operador importar itemgetter
+f = itemgetter ( 'Nome' )
+csv_mapping_list. ordenar ( chave=f )
+# Função ordenada iterável
+csv_mapping_list = classificado ( csv_mapping_list, chave = lambda item: item. get ( "Idade" ))
+Todas essas soluções e outras descritas em meu artigo intitulado “ How to Sort a List of Dictionaries in Python ”.
+
+Meta (6 trechos)
+Python Meta Usando Carbono
+Às vezes, a codificação é menos sobre escrever código e mais sobre dar sentido ao código. Como resultado, achei que fazia sentido criar uma seção dedicada a solucionar desafios de desenvolvimento em Python, como testes. Confira!
+
+Código de comentário
+Quando se trata de escrever código, geralmente sou da opinião de que o código deve ser o mais legível possível sem comentários . Dito isso, os comentários têm valor, por isso é importante saber como escrevê-los. Felizmente, o Python suporta três opções principais:
+
+# Aqui está um comentário embutido em Python
+# Aqui
+# é
+# a
+# multilinha
+# Comente
+# em
+# Pitão
+"""
+Aqui está outro comentário multilinha em Python.
+Às vezes, isso é interpretado como uma docstring,
+então tenha cuidado onde você coloca isso.
+"""
+Se você estiver interessado em explorar essas opções um pouco mais a fundo, confira meu artigo intitulado “ Como comentar o código em Python ”.
+
+Desempenho de teste
+Às vezes, você só quer comparar alguns pedaços de código. Felizmente, o Python tem algumas opções diretas, incluindo duas bibliotecas, `timeit`python e `cProfile`python. Dê uma olhada:
+
+# Solução de força bruta
+importar data e hora
+start_time = datetime.datetime. agora ()
+[( a, b ) for a in ( 1 , 3 , 5 ) for b in ( 2 , 4 , 6 )] # trecho de exemplo     
+end_time = datetime.datetime. agora ()
+imprimir end_time - start_time
+# solução timeit
+import timeit
+min ( timeit. repeat ( "[(a, b) para a em (1, 3, 5) para b em (2, 4, 6)]" ) )
+# solução cProfile
+importar cProfile
+cPerfil. run ( "[(a, b) para a em (1, 3, 5) para b em (2, 4, 6)]" )
+Se você leu algum dos artigos da série How to Python , então você sabe quantas vezes eu uso a biblioteca `timeit`python para medir o desempenho. Dito isso, é bom saber que existem diferentes opções para diferentes cenários.
+
+Como sempre, se quiser saber mais sobre testes, consulte o artigo intitulado “ Como testar o desempenho do código Python ”.
+
+Strings (22 trechos)
+Sintaxe de string do Python usando carbono
+No mundo da programação, strings são uma abstração criada para representar uma coleção de caracteres. Naturalmente, eles podem ser usados ​​para armazenar dados de texto como nomes e endereços de e-mail. Infelizmente, isso significa que as strings são extremamente complexas, então há uma tonelada de problemas relacionados a strings. Nesta seção, veremos alguns desses problemas.
+
+Comparando Strings
+Talvez uma das perguntas mais comuns que as pessoas fazem depois de criar algumas strings é como compará-las. Em Python, existem várias maneiras diferentes de comparar strings, dependendo de suas necessidades. Por exemplo, queremos saber se duas strings são iguais? Ou só precisamos saber como eles se comparam alfabeticamente?
+
+Para cada cenário, existem diferentes ferramentas que podemos usar. Aqui está uma lista rápida de opções:
+
+pinguins_87 = "Crosby"
+pinguins_71 = "Malkin"
+pinguins_59 = "Guentzel"
+# Comparação de força bruta (somente igualdade)
+is_same_player = len ( penguins_87 ) == len ( penguins_59 )
+se is_same_player:
+  para a, b em zip ( penguins_87, penguins_59 ) : 
+    se a != b:
+      is_same_player = Falso
+      quebrar
+# Comparação direta
+penguins_87 == penguins_59   # Falso
+pinguins_87 > penguins_59   # Falso
+penguins_71 < = penguins_71   # Verdadeiro
+# Verificação de identidade
+penguins_87 é penguins_87   # Verdadeiro
+penguins_71 é penguins_87   # Falso
+Nestes exemplos, demonstramos alguns tipos diferentes de comparação. Por exemplo, podemos verificar a igualdade usando o operador `==`python. Claro, se precisarmos apenas verificar a ordem alfabética, podemos optar por um dos operadores relacionais como maior que (`>`python). Da mesma forma, o Python tem o operador `is`python para verificar a identidade.
+
+Se você quiser saber mais sobre esses diferentes operadores, confira este artigo intitulado “ How to Compare Strings in Python ”. Claro, se preferir, você pode conferir este vídeo do YouTubeAbre em uma nova guia. .
+
+Verificando Substrings
+Uma coisa que me pego pesquisando com mais frequência do que deveria é a maneira de verificar se uma string contém uma substring em Python. Ao contrário da maioria das linguagens de programação , o Python utiliza uma boa palavra-chave para esse problema. Claro, também existem soluções baseadas em métodos:
+
+endereços = [
+    "Rua Elm 123" ,
+    "Rua Oak 531" ,
+    "Rua Maple 678"
+]
+rua = "Rua Elm"
+# Força bruta (não faça isso)
+para endereço em endereços:
+    address_length = len ( endereço )
+    comprimento_rua = len ( rua )
+    para índice no intervalo ( address_length - street_length + 1 ) : 
+        substring = endereço [ index:street_length + index ]
+        if substring == rua:
+            imprimir ( endereço )
+# O método de índice
+para endereço em endereços:
+    tente :
+        endereço. índice ( rua )
+        imprimir ( endereço )
+    exceto ValueError:
+        passar
+# O método de localização
+para endereço em endereços:
+    se endereço. encontrar ( rua ) > = 0 : 
+        imprimir ( endereço )
+# A palavra-chave in (mais rápido/preferido)
+para endereço em endereços:
+    se rua no endereço:
+        imprimir ( endereço )
+Se você for como eu e esquecer a palavra-chave `in`python, talvez queira marcar o artigo “ Como verificar se uma string contém uma substring ”.
+
+Formatando uma String
+Quer gostemos de admitir ou não, muitas vezes nos encontramos enterrando declarações de impressão em todo o nosso código para fins de depuração rápida. Afinal, uma declaração de impressão bem colocada pode economizar muito tempo. Infelizmente, nem sempre é fácil ou conveniente exibir o que queremos. Felizmente, o Python tem muitas opções de formatação:
+
+nome = "Jeremy"
+idade = 25
+# Formatação de string usando concatenação
+print ( "Meu nome é " + nome + ", e eu tenho " + str ( idade ) + " anos." )
+# Formatação de string usando várias impressões
+print ( "Meu nome é " , end= "" )
+imprima ( nome, fim = "" )
+print ( " , e eu sou " , end= "" )
+print ( idade, fim= "" )
+escreval ( "anos." )
+# Formatação de string usando join
+print ( '' . join ([ "Meu nome é " , nome, ", e eu sou " , str ( idade ) , " anos" ]))
+# Formatação de string usando o operador de módulo
+print ( "Meu nome é %s, e tenho %d anos." % ( nome, idade ))
+# Formatação de string usando a função de formato com parâmetros ordenados
+print ( "Meu nome é {} e tenho {} anos" . format ( nome, idade ))
+# Formatação de string usando a função de formato com parâmetros nomeados
+print ( "Meu nome é {n}, e tenho {a} anos" . format ( a=idade, n=nome ))
+# Formatação de strings usando f-Strings (Python 3.6+)
+print ( f "Meu nome é {nome} e tenho {idade} anos" )
+Lembre-se de que essas soluções não precisam ser usadas com instruções de impressão. Em outras palavras, sinta-se à vontade para usar soluções como f-strings sempre que precisar.
+
+Como sempre, você pode encontrar uma explicação de todas essas soluções e muito mais em meu artigo intitulado “ How to Format a String in Python ”. Se preferir ver esses trechos em ação, confira meu vídeo no YouTube intitulado “ 6 maneiras de formatar uma string em Python apresentando meu gatoAbre em uma nova guia. ”.
+
+Convertendo uma String para Minúsculas
+No processo de formatação ou comparação de uma string, podemos descobrir que uma maneira de reduzir a complexidade de uma string é converter todos os caracteres em letras minúsculas. Por exemplo, podemos fazer isso quando queremos verificar se duas strings combinam, mas não nos importamos se a capitalização é a mesma. Aqui estão algumas maneiras de fazer isso:
+
+da string import ascii_lowercase, ascii_uppercase
+herói = "All Might"
+# Força bruta usando concatenação
+saída = ""
+para char no herói:
+  se "A" < = char < = "Z" :  
+    saída += chr ( ord ( char ) - ord ( 'A' ) + ord ( 'a' ))
+  senão :
+    saída += caractere
+# Força bruta usando junção
+saída = []
+para char no herói:
+  se "A" < = char < = "Z" :  
+    saída. append ( chr ( ord ( char ) - ord ( 'A' ) + ord ( 'a' )))
+  senão :
+    saída. anexar ( caractere )
+saída = "" . juntar ( saída )
+# Força bruta usando coleções ASCII
+saída = []
+para char no herói:
+  se char em ascii_uppercase:
+    saída. anexar ( ascii_lowercase [ ascii_uppercase. index ( char )])
+  senão :
+    saída. anexar ( caractere )
+saída = "" . juntar ( saída )
+# Força bruta usando uma compreensão de lista
+output = [ ascii_lowercase [ ascii_uppercase. index ( char )] se char em ascii_uppercase else char para char em hero ] 
+saída = "" . juntar ( saída )
+# Solução Python integrada
+saída = herói. inferior ()
+Como muitos problemas nesta coleção, há um artigo que se aprofunda ainda mais em como resolver esse problema; é intitulado “ Como converter uma string para letras minúsculas em Python ” e abrange todas essas soluções e muito mais. Além disso, inclui um desafio para converter uma string em maiúsculas e minúsculas.
+
+Dividindo uma string por espaço em branco
+Embora seja difícil lidar com a localidade e outras questões de idioma, também é difícil lidar com conceitos gramaticais como palavras e frases. Por exemplo, como iríamos quebrar uma string em palavras? Uma maneira aproximada de fazer isso é dividir essa string por espaços. Dê uma olhada:
+
+my_string = "Olá, família!"
+# Divisão que só funciona quando não há separadores consecutivos
+def split_string ( my_string: str, seps: lista ) : 
+  itens = []
+  eu = 0
+  enquanto i < len ( minha_string ) : 
+    sub = next_word_or_separator ( my_string, i, seps )
+    se sub [ 0 ] não estiver em seps:  
+      Unid. anexar ( sub ) 
+    i += len ( sub )
+  devolver itens
+split_string ( my_string ) # ["Oi,", "fam!"]  
+# Uma implementação mais robusta, embora muito mais lenta, de split
+def next_word_or_separator ( texto: str, posição: int, separadores: lista ) : 
+  test_separator = lambda x: texto [ x ] nos separadores 
+  end_index = posição
+  is_separator = test_separator ( posição )
+  while end_index < len ( text ) e is_separator == test_separator ( end_index ) :  
+    end_index += 1
+  texto de retorno [ posição: end_index ]
+def split_string ( my_string: str, seps: lista ) : 
+  itens = []
+  eu = 0
+  enquanto i < len ( minha_string ) : 
+    sub = next_word_or_separator ( my_string, i, seps )
+    se sub [ 0 ] não estiver em seps:  
+      Unid. anexar ( sub ) 
+    i += len ( sub )
+  devolver itens
+split_string ( my_string ) # ["Oi,", "fam!"]  
+# A solução de divisão integrada **preferida**
+my_string. split () # ["Oi,", "fam!"]  
+Claramente, a ideia de divisão de strings é um assunto complexo. Se você estiver interessado em saber mais sobre o conteúdo desses snippets, confira o artigo intitulado “ How to Split a String by Whitespace in Python ”.
